@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "146120522414",
+    "project_id": "bmi-tracker-d2c6b",
+    "storage_bucket": "bmi-tracker-d2c6b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:146120522414:android:8057f6c3771840e1eb0b3f",
+        "android_client_info": {
+          "package_name": "com.example.bmitracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1BnQye_VZtXYWncxO2VkCLAJmttR6ebM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
