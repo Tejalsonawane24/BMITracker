@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.bmitracker.ui.theme.BMITrackerTheme
+import kotlinx.coroutines.launch
 
 
 class MainActivity : ComponentActivity() {
@@ -22,30 +23,24 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         viewModel.initialize(this)
         setContent {
-            BMITrackerTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+          BmiTheme {
+              BmiApp(
+                  viewModel = viewModel,
+                  onGoogleLogin ={
+                      lifecycleScope.launch {
+                          try {
+                              val idToken = GoogleAuthHelper.signIn(this@MainActivity)
+                              val credential = com.google.firebase.auth.GoogleAuthProvider.getCredential(idToken,null)
+                              FirebaseAuth.getInstance().signInWithCredential(credential).addOnSuccessListener{
+                                  viewModel.loginWithGoogleSuccess()
+                              }.addOnFailureListener{}
+                          }catch (e: Exception){
+                              viewModel.clearMessage()
+                          }
+                      }
+                  }
+              )
+          }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    BMITrackerTheme {
-        Greeting("Android")
     }
 }
